@@ -45,6 +45,15 @@ def custom_save_image_with_geninfo(image, geninfo, filename, extension=None, exi
             })
 
             piexif.insert(exif_bytes, filename)
+    elif extension.lower() == '.avif':
+        if opts.enable_pnginfo and geninfo is not None:
+            exif_bytes = piexif.dump({
+                "Exif": {
+                    piexif.ExifIFD.UserComment: piexif.helper.UserComment.dump(geninfo or "", encoding="unicode")
+                },
+            })
+
+        image.save(filename,format=image_format, exif=exif_bytes)
     elif extension.lower() == ".gif":
         image.save(filename, format=image_format, comment=geninfo)
     else:
