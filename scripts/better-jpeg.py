@@ -34,7 +34,7 @@ def custom_save_image_with_geninfo(image, geninfo, filename, extension=None, exi
         elif image.mode == 'I;16':
             image = image.point(lambda p: p * 0.0038910505836576).convert("RGB" if extension.lower() == ".webp" else "L")
 
-        # this is the edited line
+        # Additional options for JPEG saving: optimize, progressive, subsampling
         image.save(filename, format=image_format, quality=opts.jpeg_quality, optimize=True, progressive=True, subsampling=0, lossless=opts.webp_lossless)
 
         if opts.enable_pnginfo and geninfo is not None:
@@ -52,8 +52,11 @@ def custom_save_image_with_geninfo(image, geninfo, filename, extension=None, exi
                     piexif.ExifIFD.UserComment: piexif.helper.UserComment.dump(geninfo or "", encoding="unicode")
                 },
             })
+        else:
+            exif_bytes = None
 
-        image.save(filename,format=image_format, exif=exif_bytes)
+        # Maintained quality parameter for AVIF
+        image.save(filename, format=image_format, quality=opts.jpeg_quality, exif=exif_bytes)
     elif extension.lower() == ".gif":
         image.save(filename, format=image_format, comment=geninfo)
     else:

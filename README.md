@@ -30,5 +30,5 @@ image.save(filename, format=image_format, quality=opts.jpeg_quality, optimize=Tr
 
 ## Warnings
 
-1. This extension works by overwriting the standard image-saving function. It is based on the function as it appears in [version 1.9.3](https://github.com/AUTOMATIC1111/stable-diffusion-webui/releases/tag/v1.9.3) of Auto1111. If your version is different, it's possible that this extension will break things.
+1. This extension works by overwriting the standard image-saving function. It is based on the function as it appears in [version 1.10.0](https://github.com/AUTOMATIC1111/stable-diffusion-webui/releases/tag/v1.9.3) of Auto1111. If your version is different, it's possible that this extension will break things.
 2. This extension is not thoroughly tested at this point and comes with no guarantees whatsoever. Use at your own risk.
